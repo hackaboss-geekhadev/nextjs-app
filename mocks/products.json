@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "nombre": "Dell XPS 13",
+    "precio": 999.99,
+    "marca": "Dell",
+    "modelo": "XPS 13 9305",
+    "url_imagen": "/products/1.webp"
+  },
+  {
+    "id": 2,
+    "nombre": "HP Spectre x360",
+    "precio": 1249.99,
+    "marca": "HP",
+    "modelo": "Spectre x360 14t",
+    "url_imagen": "/products/2.webp"
+  },
+  {
+    "id": 3,
+    "nombre": "Lenovo ThinkPad X1",
+    "precio": 1399.99,
+    "marca": "Lenovo",
+    "modelo": "ThinkPad X1 Carbon",
+    "url_imagen": "/products/3.webp"
+  },
+  {
+    "id": 4,
+    "nombre": "MSI GS66 Stealth",
+    "precio": 1799.99,
+    "marca": "MSI",
+    "modelo": "GS66 Stealth 10SE",
+    "url_imagen": "/products/4.webp"
+  },
+  {
+    "id": 5,
+    "nombre": "ASUS ZenBook 14",
+    "precio": 899.99,
+    "marca": "Asus",
+    "modelo": "ZenBook 14 UX425EA",
+    "url_imagen": "/products/5.webp"
+  },
+  {
+    "id": 6,
+    "nombre": "Dell Inspiron 15 5000",
+    "precio": 679.99,
+    "marca": "Dell",
+    "modelo": "Inspiron 15 5502",
+    "url_imagen": "/products/6.webp"
+  },
+  {
+    "id": 7,
+    "nombre": "HP Pavilion 15",
+    "precio": 749.99,
+    "marca": "HP",
+    "modelo": "Pavilion 15-eg0025nr",
+    "url_imagen": "/products/7.webp"
+  },
+  {
+    "id": 8,
+    "nombre": "Lenovo IdeaPad Flex 5",
+    "precio": 599.99,
+    "marca": "Lenovo",
+    "modelo": "IdeaPad Flex 5 14",
+    "url_imagen": "/products/8.webp"
+  },
+  {
+    "id": 9,
+    "nombre": "MSI Modern 14",
+    "precio": 849.99,
+    "marca": "MSI",
+    "modelo": "Modern 14 B11SB",
+    "url_imagen": "/products/9.webp"
+  },
+  {
+    "id": 10,
+    "nombre": "ASUS VivoBook S15",
+    "precio": 799.99,
+    "marca": "Asus",
+    "modelo": "VivoBook S15 S533",
+    "url_imagen": "/products/10.webp"
+  },
+  {
+    "id": 11,
+    "nombre": "Acer Swift 3",
+    "precio": 649.99,
+    "marca": "Acer",
+    "modelo": "Swift 3 SF314",
+    "url_imagen": "/products/11.webp"
+  },
+  {
+    "id": 12,
+    "nombre": "Apple MacBook Air",
+    "precio": 999.00,
+    "marca": "Apple",
+    "modelo": "MacBook Air M1",
+    "url_imagen": "/products/12.webp"
+  }
+]
