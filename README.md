@@ -1,38 +1,862 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+---
+layout: ../../layouts/MarkdownLayout.astro
+title: Taller de React con Next.js
+date: 2023-03
+author: Irwing Naranjo <khalisser@gmail.com>
+category: Workshops
+---
 
-## Getting Started
+### Introducción
 
-First, run the development server:
+Next.js es un excelente framework de React que nos permite crear aplicaciones web de forma rápida y sencilla, con una excelente experiencia de desarrollo, y un equipo genial que siempre está en el top de JavaScript. Actualmente ha tenido mucho aumento en su popularidad, según la [StateOfJs](https:StateOfJs.com), se posiciona como uno de los mas usados frameworks de renderizado para  React. 
+
+Pero, ¿Por que Next.js es tan popular?
+
+Para que una herramienta de JavaScript hoy en día se haga tan popular en mi opinión debe debe ser fácil de aprender y debe estar optimizada para el rendimiento de un sitio web, dos cosas que Next.js nos ayuda a cumplir sin mayores complicaciones.
+
+Principales caracteristicas que encontramos en Next.js: sistema de enrutamiento basado en el sistema de archivos que nos hace entender en todo momento la estructura del proyecto, fácil implementación de Server Side Rendering (SSR), Client Side Rendering (CSR) y Static Site Generation (SSG), optimización de imágenes, soporte para TypeScript, creación de API muy similar a Express, integración con una solución de despliegue pensado para Next.js.
+
+Algunos de los casos de uso en los que se puede implementar son: sitios web de comercio electrónico, Aplicaciones web empresariales, Sitios web de medios y noticias, Aplicaciones web de viajes y turismo, básicamente se puede implementar crear cualquier sitio web que requiera un alto rendimiento y una excelente experiencia de usuario. Aunque hay mejores soluciones si lo que buscas es crear un pequeño sitio web personal y estático.
+
+<br />
+
+### Instalación
+
+La instalación de Next.js es un proceso sencillo y rápido. Sigue estos pasos:
+
+> Asegúrate de tener Node.js instalado en tu sistema. Puedes verificar si tienes Node.js instalado escribiendo `node -v` en tu terminal. Si no lo tienes instalado, descárgalo desde el sitio web oficial de [Node.js](https://nodejs.org) e instálalo en tu sistema.
+
+Aunque hay varias formas de instalar Node.js, la forma más sencilla es usar npm y create-next-app para mas detalles de como instalarlo puedes visitar la [Create a Next.js App](https://nextjs.org/learn/basics/create-nextjs-app).
+
+- Instala create-next-app usando npm:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+npx create-next-app nextjs-app
+```
+> Este comando creará un nuevo proyecto de Next.js llamado nextjs-app en tu sistema. Si prefieres usar yarn o pnpm en lugar de npm.
+
+Irán apareciendo una serie de preguntas, las cuales puedes responder de la siguiente manera:
+
+```bash
+Would you like to use TypeScript with this project? No / Yes: No
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```bash
+Would you like to use ESLint with this project? › No / Yes: Yes
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+Would you like to use src/ directory with this project? › No / Yes: Yes
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```bash
+Would you like to use experimental `app/` directory with this project? › No / Yes: No
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+What import alias would you like configured? › @/*
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+¡Y eso es todo! Ahora toma un ☕  mientras se instalan las dependencias.
 
-## Learn More
+Luego que se instalen las dependencias, entra al directorio del proyecto y ejecuta el siguiente comando:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cd nextjs-app
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Estructura del proyecto
 
-## Deploy on Vercel
+```
+nextjs-app/
+  ├── node_modules/
+  ├── src/
+  │   ├── pages/
+  │   │   ├── index.js
+  │   │   ├── _document.js
+  │   │   ├── _app.js
+  │   │   └── api/
+  │   │       └── hello.js
+  │   └── public/
+  │       ├── favicon.ico
+  │       └── vercel.svg
+  ├── styles/
+  │   ├── globals.css
+  │   └── Home.module.css
+  ├── .gitignore
+  ├── package.json
+  ├── README.md
+  └── yarn.lock
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+A continuación, se detalla la función de cada directorio y archivo:
+
+`node_modules/`: Este directorio contiene todas las dependencias y módulos necesarios para que funcione el proyecto. No se debe modificar ni eliminar manualmente.
+
+`public/`: Este directorio contiene todos los archivos estáticos que se deben servir públicamente, como imágenes o archivos CSS. Los archivos que se colocan aquí se pueden acceder en la aplicación utilizando el prefijo /public/.
+
+`src/pages/`: Este es el directorio donde se almacenan las páginas de Next.js. Cada archivo .js en este directorio se convierte en una ruta accesible a través de la aplicación. Por ejemplo, el archivo index.js se convierte en la página principal del sitio. Además, dentro de este directorio, existe una carpeta llamada api/ que se usa para crear rutas de API.
+
+`src/styles/`: Este es el directorio donde se almacenan los archivos de estilo. Cada archivo .css en este directorio se puede importar en cualquier página para aplicar estilos específicos.
+
+`src/pages/_document.js`: Este archivo se utiliza para personalizar el HTML y los componentes que se renderizan en el servidor. Se utiliza principalmente para agregar etiquetas meta, estilos globales y otros elementos que se aplicarán a todas las páginas de la aplicación. Solo se renderiza en el lado del servidor y no en el navegador.
+
+`src/pages/_app.js`: Este archivo se utiliza para personalizar el comportamiento de la aplicación. Es el componente más alto en el árbol de componentes de Next.js y se utiliza para mantener el estado global, agregar componentes de navegación y aplicar estilos globales. Este componente se renderiza tanto en el lado del servidor como en el lado del cliente y es responsable de inicializar cualquier estado o datos necesarios para la aplicación.
+
+`.gitignore`: Este archivo es utilizado por Git para determinar qué archivos y directorios deben ignorarse durante el seguimiento de versiones del proyecto.
+
+`package.json`: Este archivo es utilizado por npm (o Yarn) para almacenar la información del proyecto, incluyendo sus dependencias y scripts.
+
+`README.md`: Este archivo es una descripción general del proyecto.
+
+<br />
+
+### Configurando editor
+
+Agregamos una configuración básica para que nuestro editor de código nos ayude a escribir código de la mejor manera posible. Principalmente para mantener una buena indentación y posterior instalaremos un linter para que nos ayude a mantener menos errores en nuestro código.
+
+Crea un fichero en la raíz del proyecto llamado `.editorconfig` y agrega la siguiente configuración:
+
+```
+root = true
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+indent_style = space
+indent_size = 2
+```
+
+<br />
+
+### Rutas
+
+Inicialmente podemos encontrar en nuestro proyecto solo la ruta inicial `/` y la ruta `/api/hello` que nos permite hacer una petición `GET` a la ruta y nos regresa un `json` con un mensaje de saludo.
+
+Vamos a hacer una configuración básica para crear las rutas de nuestro proyecto y vamos a explicar cada ruta su funcionamiento.
+
+| Ruta | Path | Descripción |
+| --- | --- | --- |
+| /api/products | api/products/index.js | API de productos (práctica API) |
+| /api/products/:id | api/products/[id].js | API detalle de producto (práctica API) |
+| / | index.js | Listado productos (práctica [CSR](/workshops/nextjs#server-side-rendering)) |
+| /products/:id | products/[id].js | Detalle de un producto (práctica [CSR](/workshops/nextjs#server-side-rendering)) |
+| /about | about.js | Sobre la empresa (práctica [SSR](/workshops/nextjs#server-side-rendering)) |
+
+> Todas las paths de las rutas se encuentran en la carpeta `src/pages`
+
+<br />
+
+### Configuración test estáticos
+
+Los tests estáticos son utilizados para identificar y corregir errores de sintaxis, estilo y otros problemas en el código fuente en tiempo de programación. Los test estáticos analizan el código fuente y ofrecen sugerencias para mejorar su calidad, legibilidad y mantenibilidad.
+
+Si recuerdan en la instalación del proyecto aceptamos la instalación de un Linter que Next nos propone, este linter es [ESLint](https://eslint.org/), el cual nos ayuda a mantener un código limpio y ordenado. Es una buena práctica que utilices linters en todos tus proyectos así te darás cuenta de muchos errores mucho antes de ir a producción o ejecutar el código.
+
+Hay dos formas de correr los test estáticos, la primera es desde la terminal y es principalmente usada para los pipelines de integración continua, la segunda es desde el editor de código, en este caso usaremos VSCode. Así que veremos las dos configuraciones:
+
+***Configuración del comando `lint` para uso en la terminal***
+
+Configuración del comando `lint` en el `package.json`, en caso de que no se encuentren los comandos en el archivo, agregarlos.
+
+```
+"scripts": {
+  ...,
+  "lint": "next lint",
+  "lint:fix": "next lint --fix"
+},
+```
+
+> Si te preguntas cual es la diferencia entre `lint` y `lint:fix`, la primera es para correr los test estáticos y la segunda es para correr los test estáticos y corregir de forma automática los errores que linter pueda resolver.
+
+***Configuración del linter en VSCode***
+
+Para configurar el linter en VSCode, debemos instalar la extensión de ESLint, la cual nos ayudará a correr los test estáticos desde el editor de código.
+
+Una vez instalada la extensión, podemos mejorar su funcionamiento agregando algunas configuraciones al editor, para ello debemos abrir el archivo de configuración de de usuario, en Mac es `CMD + p` y escribir `>>Preferences: Open User Settings (JSON)`.
+
+```
+{
+  ...
+  "eslint.format.enable": true,
+  "eslint.debug": true,
+  "eslint.codeActionsOnSave.rules": null,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript", // Enable .ts
+    "typescriptreact" // Enable .tsx
+  ],
+  ...
+}
+```
+
+> Esta configuración es opcional
+
+Y como extensión de complemento puedes instalar Error Lens, la cual nos ayudará a identificar los errores de sintaxis y estilo en el código de una forma más visual.
+
+<br />
+
+### Configuración test para api
+
+Para implementar test a nuestra API que será nuestra principal fuente de datos y la parte mas importante de nuevo proyecto, vamos a utilizar [Jest](https://jestjs.io/)
+
+Por lo que debemos instalarlo como dependencia de desarrollo:
+
+```
+npm i -D jest
+```
+
+Posterior a ello vamos a crear un archivo de configuración en la carpeta raíz del proyecto llamado `jest.config.js` y vamos a agregar la siguiente configuración:
+
+```js
+const nextJest = require('next/jest')
+
+const createJestConfig = nextJest({
+  dir: './'
+})
+
+const customJestConfig = {
+  moduleDirectories: ['node_modules', '<rootDir>/'],
+  moduleNameMapper: {
+    "^@api(.*)$": "<rootDir>/src/pages/api$1" // map @api to src/pages/api
+  }
+}
+
+module.exports = createJestConfig(customJestConfig)
+```
+
+Por último agregamos a los scripts de nuestro package.json los comandos de ejecución:
+
+```
+"scripts": {
+  ...
+  "test": "jest",
+  "test:watch": "jest --watch"
+},
+```
+
+<br />
+
+### Configuración test para componentes
+
+Para la segunda parte de nuestra aplicación debemos construir un sitio web en rutas creadas para mostrar el listado de productos y los detalles de un producto, para ello vamos a utilizar [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) para poder probar nuestros componentes.
+
+Para usar React Testing Library vamos a instalar las siguientes dependencias:
+
+```bash
+npm i -D @testing-library/react @testing-library/jest-dom jest-environment-jsdom
+```
+
+Posteriormente debemos anexar a la configuración de Jest lo siguiente:
+
+```js
+const customJestConfig = {
+  ...,
+  moduleNameMapper: {
+    ...
+    "^@components(.*)$": "<rootDir>/src/components$1"
+  },
+  testEnvironment: 'jest-environment-jsdom'
+}
+```
+
+Y tenemos lista la configuración para poder ejecutar los test de nuestros componentes con el mismo comando que usamos para la API.
+
+<br />
+
+### Configuración test para e2e
+
+Por último vamos a configurar los test para la parte de e2e, para ello vamos a utilizar [Cypress](https://www.cypress.io/)
+
+Para instalar Cypress vamos a ejecutar el siguiente comando:
+
+```bash
+npm i -D cypress
+```
+
+Posteriormente vamos a crear un archivo de configuración en la raíz del proyecto llamado `cypress.config.js` y agregar la siguiente configuración:
+
+```js
+const { defineConfig } = require("cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    "baseUrl": "http://localhost:3000",
+    "video": false,
+    "screenshotOnRunFailure": false,
+    "supportFile": false,
+    setupNodeEvents(on, config) {},
+  },
+});
+```
+
+Luego para escribir nuestros test e2e creamos un directorio llamado `cypress` en la raíz del proyecto y dentro un llamado `e2e` el cual contendrá nuestros test y cada test debe tener la extensión `.cy.js`
+
+
+Ya solo queda, como en los pasos anteriores, agregar el comando a los scripts de nuestro `package.json`:
+
+```
+"scripts": {
+  ...
+  "test:e2e": "cypress run"
+},
+```
+
+<br />
+
+> Nota: algunas configuraciones podrían variar en diferentes versiones de Nextjs o de las dependencias instaladas, también es posible que se requieran mejores configuraciones para implementar CI/CD, pero para este proyecto no es necesario.
+
+***Nuevos directorios y archivos agregados a nuestro proyecto***
+
+```
+nextjs-app/
+  ├── __tests__/
+  │   └── components/
+  │       └── title.test.js
+  │   └── pages/
+  │       └── api/
+  │           └── products/
+  │               |── [id].test.js
+  │               └── index.test.js
+  ├── cypress/
+  │   └── e2e/
+  │       └── home.cy.js
+  ├── cypress.config.js
+  ├── jest.config.js
+  └── yarn.lock
+
+```
+
+### Mock de datos
+
+Para la práctica de API, vamos a utilizar un mock de datos para simular la respuesta de una API real, para ello vamos a crear un directorio llamado `mocks` en la raíz del proyecto y dentro de este directorio vamos a crear un archivo llamado `products.json` y vamos a agregar los siguientes datos:
+
+```json
+[
+  {
+    "id": 1,
+    "nombre": "Dell XPS 13",
+    "precio": 999.99,
+    "marca": "Dell",
+    "modelo": "XPS 13 9305",
+    "url_imagen": "https://example.com/images/dell-xps-13-9305.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "HP Spectre x360",
+    "precio": 1249.99,
+    "marca": "HP",
+    "modelo": "Spectre x360 14t",
+    "url_imagen": "https://example.com/images/hp-spectre-x360-14t.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Lenovo ThinkPad X1 Carbon",
+    "precio": 1399.99,
+    "marca": "Lenovo",
+    "modelo": "ThinkPad X1 Carbon 9th Gen",
+    "url_imagen": "https://example.com/images/lenovo-thinkpad-x1-carbon-9th-gen.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "MSI GS66 Stealth",
+    "precio": 1799.99,
+    "marca": "MSI",
+    "modelo": "GS66 Stealth 10SE",
+    "url_imagen": "https://example.com/images/msi-gs66-stealth-10SE.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "ASUS ZenBook 14",
+    "precio": 899.99,
+    "marca": "Asus",
+    "modelo": "ZenBook 14 UX425EA",
+    "url_imagen": "https://example.com/images/asus-zenbook-14-ux425ea.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Dell Inspiron 15 5000",
+    "precio": 679.99,
+    "marca": "Dell",
+    "modelo": "Inspiron 15 5502",
+    "url_imagen": "https://example.com/images/dell-inspiron-15-5502.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "HP Pavilion 15",
+    "precio": 749.99,
+    "marca": "HP",
+    "modelo": "Pavilion 15-eg0025nr",
+    "url_imagen": "https://example.com/images/hp-pavilion-15-eg0025nr.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Lenovo IdeaPad Flex 5",
+    "precio": 599.99,
+    "marca": "Lenovo",
+    "modelo": "IdeaPad Flex 5 14",
+    "url_imagen": "https://example.com/images/lenovo-ideapad-flex-5-14.jpg"
+  },
+  {
+    "id": 9,
+    "nombre": "MSI Modern 14",
+    "precio": 849.99,
+    "marca": "MSI",
+    "modelo": "Modern 14 B11SB",
+    "url_imagen": "https://example.com/images/msi-modern-14-b11sb.jpg"
+  },
+  {
+    "id": 10,
+    "nombre": "ASUS VivoBook S15",
+    "precio": 799.99,
+    "marca": "Asus",
+    "modelo": "VivoBook S15 S533",
+    "url_imagen": "https://example.com/images/asus-vivobook-s15-s533.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Acer Swift 3",
+    "precio": 649.99,
+    "marca": "Acer",
+    "modelo": "Swift 3 SF314",
+    "url_imagen": "https://example.com/images/acer-swift-3-sf314.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Apple MacBook Air",
+    "precio": 999.00,
+    "marca": "Apple",
+    "modelo": "MacBook Air M1",
+    "url_imagen": "https://example.com/images/apple-macbook-air-m1.jpg"
+  }
+]
+
+```
+
+> Nota: para otras prácticas podríamos sustiruir estos datos simulados por una conexión a base de datos.
+
+<br />
+
+### Creando el API
+
+Para nuestra api debemos crear dos endpoints, uno para obtener todos los productos y otro para obtener un producto por su id.
+
+***Primero los test***
+
+Vamos a crear primero nuestros test y luego vamos a crear los endpoints. Y así podremos de alguna manera tener una guía de lo que vamos a crear. Y prácticaremos los principios de TDD.
+
+```js
+// file: /__tests__/pages/api/products/index.test.js
+
+import handler from '@api/products/index';
+import products from '../../../../mocks/products.json';
+
+describe('GET /api/products', () => {
+  it('should return 200', async () => {
+
+    const req = {}
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis()
+    }
+
+    await handler(req, res)
+
+    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.json).toHaveBeenCalledWith(products)
+  });
+});
+```
+
+```js
+// file: /__tests__/pages/api/products/[id].test.js
+
+import handler from '@api/products/[id]';
+import products from '../../../../mocks/products.json';
+
+describe('GET /api/products/:id', () => {
+  it('should return 200 when product is found', async () => {
+
+    const req = {
+      query: {
+        id: products[0].id
+      }
+    }
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis()
+    }
+
+    await handler(req, res)
+  
+    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.json).toHaveBeenCalledWith(products[0])
+  });
+  
+  it('should return 404 when product is not found', async () => {
+
+    const req = {
+      query: {
+        id: 0
+      }
+    }
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis()
+    }
+  
+    await handler(req, res)
+  
+    expect(res.status).toHaveBeenCalledWith(404)
+  });
+});
+```
+
+***Primero los endpoints***
+
+Ahora vamos a crear nuestros endpoints.
+
+```js
+// file: /src/pages/api/products/index.js
+
+import products from '../../../../mocks/products.json';
+
+const handler = (req, res) => {
+  try {
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export default handler;
+```
+
+```js
+// file: /src/pages/api/products/[id].js
+import products from '../../../../mocks/products.json';
+
+const handler = (req, res) => {
+  try {
+
+    const searchId = Number(req.query.id);
+
+    const product = products.find(({ id }) => id === searchId);
+    
+    if (!product) res.status(404);
+    
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export default handler;
+```
+
+<br />
+
+### Server Side Rendering
+
+Server Side Rendering (SSR) es una técnica utilizada en el desarrollo web que consiste en generar el contenido HTML de una página web en el servidor antes de enviarlo al navegador del usuario. En lugar de cargar y procesar todo el contenido en el navegador, como ocurre en el Client Side Rendering (CSR), el SSR permite que el servidor renderice el contenido y lo envíe al navegador, lo que resulta en una página web completamente cargada y lista para ser visualizada.
+
+***Ventajas:***
+
+- Mejor rendimiento inicial: Al recibir el contenido HTML ya renderizado, el tiempo de carga y visualización de la página suele ser más rápido que en el CSR, mejorando la experiencia del usuario.
+
+- SEO optimizado: Como los motores de búsqueda pueden indexar fácilmente el contenido HTML generado por el servidor, SSR es beneficioso para la optimización de motores de búsqueda (SEO).
+
+- Menor carga en el navegador: El SSR reduce la carga de trabajo en el navegador del usuario, ya que gran parte del proceso de renderizado se realiza en el servidor.
+
+***Desventajas:***
+
+- Mayor carga en el servidor: El SSR requiere que el servidor realice más trabajo, lo que puede resultar en mayor uso de recursos y tiempos de respuesta más lentos en momentos de alta demanda.
+
+- Menos interactividad: Dado que el SSR se centra en el renderizado en el servidor, puede ser menos interactivo que el CSR, especialmente cuando se trata de aplicaciones web dinámicas.
+
+***Algunos casos en los que usar SSR sería una buena idea:***
+
+Sitios de contenido estático: como un blog o un sitio de noticias, el SSR es una excelente opción. Estos sitios se benefician del rendimiento inicial y la optimización SEO.
+
+Comercio electrónico: Las tiendas en línea dependen en gran medida del tráfico orgánico para atraer clientes y generar ventas. El SSR mejora la indexación en los motores de búsqueda y proporciona una experiencia de usuario más rápida.
+
+Landing Pages: son cruciales para la generación de leads y las campañas de marketing. El SSR puede proporcionar un mejor rendimiento inicial y una mejor indexación en los motores de búsqueda.
+
+Accesibilidad: aplicaciones que deban ser accesibles para usuarios con conexiones lentas a Internet o dispositivos menos potentes también pueden beneficiarse del SSR, ya que reduce la carga en el navegador del usuario y proporciona una experiencia de carga más rápida.
+
+En nuestra práctica la forma de utilizar SSR en Next.js es de la siguiente manera:
+
+```js
+// file: src/pages/index.js
+
+import ProductCard from '@/components/products/card';
+
+const API = 'https://domain.app/api/products';
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch(API);
+    const data = await res.json();
+    return { props: { data } };
+  } catch (error) {
+    return { props: { data: [] } };
+  }
+}
+
+export default function Home({data}) {
+  return (
+    <>
+      <section>
+        {data.length === 0 && (
+          <p>No hay productos disponibles</p>
+        )}
+        {data.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </section>
+    </>
+  )
+}
+```
+
+Podemos observar que en la función `getServerSideProps` hacemos una petición a la API para obtener los productos, y luego los pasamos como props a nuestro componente.
+
+Con el uso de `getServerSideProps` Next.js identifica que el componente es una página y que debe ser renderizado en el servidor.
+
+En un ejemplo posterior veremos la diferencia con Client Side Rendering.
+
+
+<br />
+
+### Client Side Rendering
+
+Client Side Rendering (CSR) es una técnica utilizada en el desarrollo web donde el contenido HTML de una página se genera y renderiza en el navegador del usuario en lugar de en el servidor. En CSR, el navegador recibe los archivos JavaScript, CSS y otros recursos necesarios para construir y mostrar la página. Luego, el navegador ejecuta el JavaScript para generar el contenido HTML y manipular el DOM (Document Object Model) según sea necesario. Esta técnica es común en aplicaciones web de una sola página (SPA) y en aplicaciones web dinámicas.
+
+***Ventajas:***
+
+- Menor carga en el servidor: En CSR, el procesamiento y la generación del contenido HTML se realizan en el navegador del usuario, lo que reduce la carga en el servidor.
+
+- Mayor interactividad: El CSR permite una experiencia de usuario más dinámica e interactiva, ya que las actualizaciones de contenido y las transiciones entre vistas se realizan en tiempo real en el navegador.
+
+- Escalabilidad: Al delegar gran parte del trabajo de renderizado al navegador del usuario, las aplicaciones CSR pueden escalar más fácilmente, ya que el servidor se centra principalmente en proporcionar datos y recursos.
+
+***Desventajas:***
+
+- Tiempo de carga inicial más largo: El CSR puede tener tiempos de carga iniciales más largos, ya que el navegador debe descargar y ejecutar los archivos JavaScript antes de mostrar el contenido.
+
+- SEO limitado: El CSR puede presentar desafíos para la optimización en motores de búsqueda (SEO), ya que algunos motores de búsqueda pueden tener dificultades para indexar el contenido generado dinámicamente.
+
+***Algunos casos en los que usar CSR sería una buena idea:***
+
+- Aplicaciones web de una sola página (SPA): son aplicaciones que funcionan dentro de un solo archivo HTML, donde la navegación y la actualización del contenido se realizan dinámicamente sin recargar la página.
+
+- Aplicaciones web dinámicas e interactivas: webs con una gran cantidad de interacción del usuario, como juegos en línea, herramientas de diseño o aplicaciones de colaboración en tiempo real.
+
+Aplicaciones internas o de intranet: donde el SEO no es una preocupación importante, como paneles administrativos, CRM, ERP y otros similares.
+
+Aplicaciones con cargas de trabajo intensivas en el cliente: si requiere una gran cantidad de procesamiento en el lado del cliente, como editores de imágenes o aplicaciones de análisis de datos, el CSR puede ser una buena opción, ya que aprovecha al máximo la capacidad de procesamiento del navegador del usuario.
+
+Aplicaciones con arquitecturas de microservicios: si se utiliza microservicios para manejar diferentes partes de la funcionalidad pueden beneficiarse del CSR, ya que permite una mayor modularidad y separación de responsabilidades entre el cliente y el servidor.
+
+En Next.js no hay una forma especial para hacer CSR por lo que podemos métodos tradicionales de React como `useEffect` para hacer peticiones a la API y obtener los datos.
+
+Veamos el ejemplo anterior pero con CSR:
+
+```js
+// file: src/pages/index.js
+
+import { useEffect, useState } from 'react';
+import ProductCard from '@/components/products/card';
+
+const API = 'https://domain.app/api/products';
+
+export default function Home({data}) {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await fetch(API);
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        setProducts([]);
+      }
+    }
+    fetchProducts();
+  }, []);
+
+  return (
+    <>
+      <section>
+        {data.length === 0 && (
+          <p>No hay productos disponibles</p>
+        )}
+        {data.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </section>
+    </>
+  )
+}
+```
+
+<br />
+
+### Static Site Generation
+
+Static Site Generation (SSG) es una técnica utilizada en el desarrollo web en la que las páginas de un sitio web se generan y renderizan como archivos HTML estáticos durante la fase de compilación o construcción de la aplicación, en lugar de generarlas dinámicamente en tiempo real (a diferencia de SSR se generan solo una vez). Estos archivos estáticos se sirven a los usuarios cuando visitan el sitio web. El SSG es común en sitios web de contenido estático y en aplicaciones que no requieren actualizaciones en tiempo real o interacciones dinámicas.
+
+***Ventajas:***
+
+- Rendimiento: Los sitios generados estáticamente suelen ser más rápidos, ya que no requieren tiempo de procesamiento en el servidor para generar el contenido HTML. Los archivos estáticos pueden ser servidos rápidamente desde un CDN (Content Delivery Network) y, como resultado, ofrecen tiempos de carga reducidos para los usuarios.
+
+- Seguridad: Los sitios estáticos son más seguros que los sitios dinámicos, ya que no dependen de bases de datos o lenguajes de programación en el servidor. Esto reduce los ataques y el riesgo de vulnerabilidades.
+
+- Bajo costo y facilidad de implementación: Los sitios estáticos generalmente tienen costos de alojamiento más bajos y son más fáciles de implementar en comparación con los sitios dinámicos, ya que no requieren infraestructura de servidor compleja.
+
+- SEO optimizado: Los sitios generados estáticamente son fáciles de indexar por los motores de búsqueda, lo que los hace ideales para SEO.
+
+***Desventajas:***
+
+- Menos dinámico: Aunque es posible agregar interacción y contenido dinámico mediante JavaScript del lado del cliente, los sitios generados estáticamente son, en general, menos dinámicos que los sitios basados en SSR o CSR.
+
+- Actualizaciones de contenido: Los cambios en el contenido del sitio requieren la regeneración y la reimplantación del sitio completo, lo que puede ser más lento y menos flexible que las actualizaciones en tiempo real proporcionadas por el SSR y el CSR.
+
+***Algunos casos en los que usar Static Site Generation (SSG) sería una buena idea:***
+
+- Blogs y sitios de noticias: con contenido mayormente estático se benefician enormemente del SSG, ya que este enfoque proporciona tiempos de carga rápidos, mejor SEO y facilidad de implementación.
+
+- Portafolios y currículums en línea: un portafolio en línea o un sitio web personal para mostrar tus habilidades y experiencia, el SSG es una excelente opción, ya que te permite crear un sitio web de alto rendimiento y optimizado para SEO con un esfuerzo de desarrollo relativamente bajo.
+
+- Documentación y sitios de ayuda: como las guías de usuario y las páginas de preguntas frecuentes, son ideales para esté tipo de renderizado. Estos sitios a menudo contienen una gran cantidad de contenido de texto que no cambia con frecuencia.
+
+- Sitios de eventos y conferencias: estos sitios suelen requerir un alto rendimiento y una buena optimización de SEO para atraer a los asistentes y, a menudo, tienen un ciclo de vida corto y pocas o ninguna actualización de contenido.
+
+- Sitios web de pequeñas empresas: las pequeñas empresas que buscan crear un sitio web informativo con contenido estático, como detalles de contacto, servicios ofrecidos y testimonios de clientes, pueden beneficiarse del SSG. Estos sitios a menudo requieren un mantenimiento mínimo, un alto rendimiento y una buena optimización de SEO, lo que hace que el SSG sea una opción atractiva.
+
+### ¿Qué tipo de renderizado usar?
+
+El tipo de renderizado a utilizar en un proyecto web depende en gran medida de las necesidades específicas del proyecto. Cada técnica tiene sus ventajas y desventajas. Por lo que la elección del enfoque adecuado dependerá de factores como el rendimiento, la interactividad, la optimización de SEO y las consideraciones de escalabilidad.
+
+Incluso es posible que un proyecto se beneficie de la combinación de diferentes técnicas de renderizado. La elección del tipo de renderizado dependerá de un análisis cuidadoso de las necesidades del proyecto y de cómo cada técnica se ajusta a esos requerimientos. En muchos casos, la combinación de diferentes enfoques de renderizado puede ofrecer la mejor solución para equilibrar el rendimiento, la interactividad y la optimización de SEO en una aplicación web.
+
+<br />
+
+### Estilos
+
+Para este proyecto usaremos tailwindcss, pero puedes usar cualquier implementación de css o framework. Para hacer la instalación de tailwindcss puedes seguir los siguientes pasos:
+
+Ejecutamos el comando de instlación de tailwindcss y sus dependencias.
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+```
+
+Ejecutamos el script de inicialización de tailwindcss.
+
+```bash
+npx tailwindcss init -p
+```
+
+Modificamos el archivo `tailwind.config.js` para que quede de la siguiente manera:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+ 
+    // Or if using `src` directory:
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Agregamos los estilos globales en el archivo `styles/globals.css`.
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+> Podría necesitarse reiniciar el servidor de desarrollo.
+
+<br />
+
+### Deploy
+
+Para desplegar un proyecto de Next.js es posible usar diferentes proveedores de hosting, en este caso usaremos Vercel por ser la misma empresa que desarrolla Next.js y por ser una plataforma de hosting gratuita y de fácil uso.
+
+Así como contamos con diversos proveedores de hosting, también contamos con diversas formas de desplegar nuestro proyecto, en este caso usaremos el método más fácil a mi parcer de desplegar en Vercel el CLI.
+
+Para instalar el CLI de Vercel ejecutamos el siguiente comando:
+
+```bash
+npm i -g vercel
+```
+
+Una vez instalado el CLI de Vercel, ejecutamos el comando de login:
+
+```bash
+vercel login
+```
+
+Y nos pedirá que iniciemos sesión con nuestra cuenta de Vercel.
+
+Una vez iniciada sesión, ejecutamos el comando de deploy:
+
+```bash
+vercel deploy
+```
+
+Y solo queda seguir las intrucciones del CLI.
+
+<br />
+
+### Repositorio
+
+Después de haber leído la guía, puedes descargar el proyecto completo desde el siguiente enlace: [Descargar proyecto](https://github.com/hackaboss-workshops-irwing/nextjs-app) y empezar a analizar todo el código.
+
+Para instalar el proyecto debes:
+
+1. Clonar el repositorio
+
+```
+git clone https://github.com/hackaboss-workshops-irwing/nextjs-app
+```
+
+2. Instalar las dependencias
+
+```
+npm install
+```
+
+3. Ejecutar el proyecto
+
+```
+npm run dev
+```
+
+<br />
+
+### Recomendaciones
+
+1 - Antes de empezar a hacer código lee la guía completa, esto te ayudará a entender mejor el proyecto.
+
+2 - Analiza el código de la aplicación creada, y haz cambios para que puedas entender mejor como funciona, intenta crear otra pantalla o agregar un filtro de busqueda.
+
+3 - Cuando tengas la recomendación 1 y 2 hechas, intenta crear una aplicación desde cero, y usa el proyecto como referencia.
