@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/MarkdownLayout.astro
 title: Taller de React con Next.js
 date: 2023-03
 author: Irwing Naranjo <khalisser@gmail.com>
