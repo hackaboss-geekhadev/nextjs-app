@@ -1,3 +1,5 @@
+const URL_BASE = process.env.URL_BASE;
+
 export async function getStaticPaths() {
   return {
     paths: [
@@ -10,7 +12,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { url } = context.params
-  const API = `https://localhost/api/pages/${url}`;
+  const API = `${URL_BASE}/api/pages/${url}`
   try {
     const response = await fetch(API)
     const data = await response.json()

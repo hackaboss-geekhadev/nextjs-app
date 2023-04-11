@@ -1,11 +1,11 @@
 import ProductCard from '@/components/products/card';
 import Banner from '@/components/banner';
 
-const API = 'https://localhost/api/products';
+const URL_BASE = process.env.URL_BASE;
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(API);
+    const res = await fetch(`${URL_BASE}/api/products`);
     const data = await res.json();
     return { props: { data } };
   } catch (error) {
